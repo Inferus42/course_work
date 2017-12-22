@@ -1,0 +1,34 @@
+﻿@model PagedList.IPagedList<Course_Stock.Models.Product>
+@using PagedList.Mvc
+
+@{
+    Layout = null;
+}
+
+
+
+<div id="content">
+
+    <table class="table">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    <input type="button" class="btn btn-primary" value="Выбор" onclick="location.href='@Url.Action("SelectComponentProduct", new { id = item.id })'" />
+                </td>
+            </tr>
+        }
+    </table>
+    Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+    <div id="contentPager">
+        @Html.PagedListPager(Model, page => Url.Action("SelectProduct", new { page }))
+    </div>
+    <br>
+    <div>
+        <input type="button" class="btn btn-primary" value="Обратно" onclick="location.href='@Url.Action("Index", "Home")'" />
+    </div>
+</div>

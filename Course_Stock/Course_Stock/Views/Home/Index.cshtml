@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <div>
+        <input type="button" class="btn btn-primary" value="Выполнить вход" onclick="location.href='@Url.Action("Login", "Account")'" />
+    </div>
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <div>
+        <input type="button" class="btn btn-primary" value="Регистрация нового пользователя" onclick="location.href='@Url.Action("Register", "Account")'" />
+        <br>
+        <br>
+        <input type="button" class="btn btn-primary" value="Просмотр пользователей" onclick="location.href='@Url.Action("Index", "Admin")'" />
+    </div>
+}
+
+@if (User.IsInRole("Accountant") || User.IsInRole("Manager"))
+{
+    <div>
+        <input type="button" class="btn btn-primary" value="Просмотреть табели" onclick="location.href='@Url.Action("ViewMaterials", "Worker")'" />
+    </div>
+}
+
+@if (User.IsInRole("Manager"))
+{
+    <div>
+        <br>
+        <input type="button" class="btn btn-primary" value="Проверка записей" onclick="location.href='@Url.Action("ViewRecordsNonCheck", "Worker")'" />
+    </div>
+}
+
+@if (User.IsInRole("Technologist"))
+{
+    <div>
+        <input type="button" class="btn btn-primary" value="Просмотреть продукты" onclick="location.href='@Url.Action("ViewProduct", "Technologist")'" />
+    </div>
+}

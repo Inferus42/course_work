@@ -1,0 +1,82 @@
+﻿@model PagedList.IPagedList<Course_Stock.Models.Table>
+@using PagedList.Mvc
+
+@{
+    Layout = null;
+}
+
+
+
+<div id="content">
+
+    <h1> Табели </h1>
+
+    <table class="table">
+        <tr>
+            <th> № </th>
+            <th> Дата открытия </th>
+            <th> Дата закрытия </th>
+            <th> Закрыт/открыт </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.date_open, "Date")
+                </td>
+
+                <td>
+                    @if (item.close == true)
+                {
+                        @Html.DisplayFor(modelItem => item.date_close, "Date")
+                    }
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.close)
+                </td>
+
+
+                <td>
+                    <input type="button" class="btn btn-primary" value="Выбор" onclick="location.href='@Url.Action("ViewRecords", new { id = item.id, close = item.close })'" />
+                    @if (User.IsInRole("Manager") && item.close == false)
+                    {
+                        <input type="button" class="btn btn-primary" value="Закрыть табель" onclick="location.href='@Url.Action("CloseTable", new { id_close = item.id, id_bag = @ViewBag.id })'" />
+                    }
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+
+
+    Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+    <div id="contentPager">
+        @Html.PagedListPager(Model, page => Url.Action("SelectTables", new { @ViewBag.id, page }))
+    </div>
+
+    <br>
+
+    @if (User.IsInRole("Manager"))
+    {
+        <div>
+            <input type="button" class="btn btn-primary" value="Открыть табель" onclick="location.href='@Url.Action("OpenTable", new { id = @ViewBag.id })'" />
+        </div>
+    }
+    <br>
+    <div>
+        <input type="button" class="btn btn-primary" value="Обратно" onclick="location.href='@Url.Action("ViewMaterials")'" />
+    </div>
+
+
+
+</div>

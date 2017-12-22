@@ -1,0 +1,71 @@
+﻿@model PagedList.IPagedList<Course_Stock.Models.Record>
+@using PagedList.Mvc
+
+@{
+    Layout = null;
+}
+
+
+
+<div id="content">
+
+    <h1> Табель #@ViewBag.id</h1>
+    <br>
+
+    <table class="table">
+        <tr>
+            <th> Дата изменения </th>
+            <th> Поставка </th>
+            <th> Кол-во товара </th>
+            <th> Поставщик </th>
+            <th> Рабочий </th>
+            <th></th>
+        </tr>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.date_time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.supply_or_delivery)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.qantity)
+                </td>
+                <td>
+                    @if (item.provider != null)
+                    { @Html.DisplayFor(modelItem => item.provider) }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.worker)
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+   
+        Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+    <div id="contentPager">
+        @Html.PagedListPager(Model, page => Url.Action("SelectRecords", new { ViewBag.id, ViewBag.close, page }))
+    </div>
+
+        <br>
+
+        @if (ViewBag.close == false)
+        {
+            <div>
+                <input type="button" class="btn btn-primary" value="Добавить запись о поставке" onclick="location.href='@Url.Action("CreateRecord", new { id = @ViewBag.id })'" />
+            </div>
+        }
+        <br>
+        <div>
+            <input type="button" class="btn btn-primary" value="Обратно" onclick="location.href='@Url.Action("ViewMaterials")'" />
+        </div>
+   
+</div>

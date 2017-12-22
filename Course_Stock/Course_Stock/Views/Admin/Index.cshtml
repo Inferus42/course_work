@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Course_Stock.Models.User>
+
+<table class="table">
+    <tr>
+        <th> Имя пользователя </th>
+        <th> Email </th>
+        <th> Телефон </th>
+        <th> Роль </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.role)
+        </td>
+        <td>
+            <input type="button" class="btn btn-primary" value="Правка" onclick="location.href='@Url.Action("Edit", new { id=item.id })'" />
+            <input type="button" class="btn btn-primary" value="Удалить" onclick="location.href='@Url.Action("Delete", new { id=item.id })'" />
+        </td>
+    </tr>
+}
+
+</table>
+<div>
+    <input type="button" class="btn btn-primary" value="Обратно" onclick="location.href='@Url.Action("Index", "Home")'" />
+</div>

@@ -1,0 +1,61 @@
+﻿@model Course_Stock.Models.Record
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Создать запись</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <h5><b> Номер табеля </b> </h5>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.id_table, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.id_table, "", new { @class = "text-danger" })
+                </div>
+</div>
+
+        <div class="form-group">
+            <h5><b> Поставка </b></h5>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.supply_or_delivery, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.supply_or_delivery, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h5><b> Количество материала </b> </h5>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.qantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.qantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h5><b> Поставщик </b></h5> 
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.provider, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.provider, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Отправить на подтверждение" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <input type="button" class="btn btn-primary" value="Обратно" onclick="location.href='@Url.Action("ViewMaterials")'" />
+</div>
+
+
+
+

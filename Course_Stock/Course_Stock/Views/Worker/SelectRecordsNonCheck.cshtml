@@ -1,0 +1,72 @@
+﻿@model PagedList.IPagedList<Course_Stock.Models.Record>
+@using PagedList.Mvc
+
+@{
+    Layout = null;
+}
+
+<div id="content">
+    <h1> Записи </h1>
+    <table class="table">
+        <tr>
+            <th>
+                Материал
+            </th>
+            <th>
+                Дата добавления
+            </th>
+            <th>
+                Поставка
+            </th>
+            <th>
+                Изменения на складе
+            </th>
+            <th>
+                Поставщик
+            </th>
+            <th>
+                Рабочий
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name_material)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.date_time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.supply_or_delivery)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.qantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.provider)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.worker)
+                </td>
+
+                <td>
+                    <input type="button" class="btn btn-primary" value="Подтвердить" onclick="location.href='@Url.Action("SetCheckRecord", new { id = item.id, check = true })'" />
+                    <input type="button" class="btn btn-primary" value="Отклонить" onclick="location.href='@Url.Action("SetCheckRecord", new { id = item.id, check = false })'" />
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+    <div id="contentPager">
+        @Html.PagedListPager(Model, page => Url.Action("SelectRecordsNonCheck", new { page }))
+    </div>
+    <br>
+    <div>
+        <input type="button" class="btn btn-primary" value="Обратно" onclick="location.href='@Url.Action("Index", "Home")'" />
+    </div>
+</div>

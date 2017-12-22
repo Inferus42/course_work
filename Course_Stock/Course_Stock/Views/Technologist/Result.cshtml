@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Course_Stock.Models.Component>
+
+<table class="table">
+    <tr>
+        <th>
+            Наименование сырья
+        </th>
+        <th>
+            Колличество сырья на складе
+        </th>
+        <th>
+            Затраты на производство продукта
+        </th>
+        <th>
+            Остаток на складе
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.quantityInStockNow)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.quantityInProduct)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.quantityInStockAfter)
+        </td>
+
+    </tr>
+}
+
+</table>
+
+<div>
+    <input type="button" class="btn btn-primary" value="Обратно" onclick="location.href='@Url.Action("ViewProduct")'" />
+</div>

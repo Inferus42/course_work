@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Course_Stock.Models.Component>
+
+<h2> Состав продукта </h2>
+<table class="table">
+    <tr>
+        <th>
+            Наименование сырья
+        </th>
+        <th>
+            Необходимое для одного продукта 
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.quantityInProduct)
+        </td>
+    </tr>
+}
+
+</table>
+<div>
+    <input type="button" class="btn btn-primary" value="Калькулятор продукции" onclick="location.href='@Url.Action("CreateCalculate", new { id = @ViewBag.id })'" />
+</div>
+<br>
+<div>
+    <input type="button" class="btn btn-primary" value="Обратно" onclick="location.href='@Url.Action("ViewProduct")'" />
+</div>
+
